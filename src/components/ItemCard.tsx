@@ -1,14 +1,19 @@
 // src/components/ItemCard.tsx
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Icon, IconButton, Text, useTheme } from 'react-native-paper';
 
 export default function ItemCard({ item }: { item: any }) {
   const theme = useTheme();
+  const router = useRouter();
   const [liked, setLiked] = useState(false);
 
   return (
-    <Pressable style={{ width: '48%', marginBottom: 16 }}>
+    <Pressable
+      style={{ width: '48%', marginBottom: 16 }}
+      onPress={() => router.push({ pathname: '/item/[id]', params: { id: item.id } })}
+    >
       <View
         style={{
           aspectRatio: 0.87,

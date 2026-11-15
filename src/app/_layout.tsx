@@ -35,6 +35,13 @@ function TabsLayout() {
           }}
         />
       ))}
+      <Tabs.Screen
+        name="item/[id]"
+        options={{
+          href: null,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
     </Tabs>
   );
 }
