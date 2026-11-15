@@ -42,6 +42,12 @@ function TabsLayout() {
           tabBarStyle: { display: 'none' },
         }}
       />
+      <Tabs.Screen
+        name="category/[name]"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }

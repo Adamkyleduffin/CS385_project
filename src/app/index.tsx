@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <TopBar title="NeutralMU" leftIcon="menu" showAvatar />
+      <TopBar title="MintedMU" leftIcon="menu" showAvatar />
       <Searchbar
         placeholder="Search for an item"
         value={query}

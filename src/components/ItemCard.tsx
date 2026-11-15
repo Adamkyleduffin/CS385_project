@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Icon, IconButton, Text, useTheme } from 'react-native-paper';
 
-export default function ItemCard({ item }: { item: any }) {
+type Props = { item: any; showLike?: boolean };
+
+export default function ItemCard({ item, showLike = true }: Props) {
   const theme = useTheme();
   const router = useRouter();
   const [liked, setLiked] = useState(false);
@@ -24,14 +26,16 @@ export default function ItemCard({ item }: { item: any }) {
         }}
       >
         <Icon source="shape-outline" size={64} color={theme.colors.outline} />
-        <IconButton
-          icon={liked ? 'heart' : 'heart-outline'}
-          mode="contained"
-          containerColor="#fff"
-          size={18}
-          onPress={() => setLiked(!liked)}
-          style={{ position: 'absolute', right: 6, bottom: 6 }}
-        />
+        {showLike && (
+          <IconButton
+            icon={liked ? 'heart' : 'heart-outline'}
+            mode="contained"
+            containerColor="#fff"
+            size={18}
+            onPress={() => setLiked(!liked)}
+            style={{ position: 'absolute', right: 6, bottom: 6 }}
+          />
+        )}
       </View>
       <Text variant="labelLarge" style={{ marginTop: 8, marginLeft: 12 }}>
         {item.title}
