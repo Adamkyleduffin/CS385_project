@@ -2,6 +2,8 @@ import { describe, expect, it } from '@jest/globals';
 import {
   CARBON_FACTORS,
   CarbonFactor,
+  CLOTHING_FACTOR_SOURCE,
+  CLOTHING_KG_CO2E_PER_KG,
   DISPLACEMENT_RATE,
   estimateCo2e,
   estimateImpact,
@@ -31,6 +33,21 @@ describe('carbon factor table', () => {
   it('uses a displacement rate between 0 and 1', () => {
     expect(DISPLACEMENT_RATE).toBeGreaterThan(0);
     expect(DISPLACEMENT_RATE).toBeLessThanOrEqual(1);
+  });
+});
+
+describe('clothing emission factor', () => {
+  it('matches the Climatiq factor recorded in CLOTHING_FACTOR_SOURCE (22,310 kg per tonne)', () => {
+    expect(CLOTHING_KG_CO2E_PER_KG).toBeCloseTo(22310 / 1000);
+    expect(CLOTHING_FACTOR_SOURCE.activityId).toBe(
+      'consumer_goods-type_clothing_primary_material_production',
+    );
+  });
+
+  it('is used for every clothing sub-category', () => {
+    SUBCATEGORIES.forEach((s) => {
+      expect(CARBON_FACTORS[s].kgCo2ePerKg).toBe(CLOTHING_KG_CO2E_PER_KG);
+    });
   });
 });
 
