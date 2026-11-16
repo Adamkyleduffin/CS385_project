@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { useCarbonSummary } from '../api/carbon';
 import NotificationRow from '../components/NotificationRow';
 import ReviewRow from '../components/ReviewRow';
 import StarRating from '../components/StarRating';
@@ -17,6 +18,8 @@ export default function Profile() {
   const theme = useTheme();
   const router = useRouter();
   const [section, setSection] = useState('Dashboard');
+  // Carbon totals come from the data layer (mock ledger now, Supabase later).
+  const { data: carbon } = useCarbonSummary(user.username);
 
   return (
     <View style={{ flex: 1 }}>
@@ -40,12 +43,12 @@ export default function Profile() {
             <StatCard
               wide
               title="Total Points"
-              value={user.points.toLocaleString()}
+              value={carbon.points.toLocaleString()}
               label="Carbon Points Generated"
             />
-            <StatCard value={String(user.itemsDonated)} label="Items Donated" />
+            <StatCard value={String(carbon.itemsGiven)} label="Items Donated" />
             <StatCard value={user.reviewAverage.toFixed(1)} label="Review Average" />
-            <StatCard value={String(user.co2Saved)} unit="kg CO₂e" label="Saved from environment" />
+            <StatCard value={String(carbon.kgCo2e)} unit="kg CO₂e" label="Saved from environment" />
           </View>
         </ScrollView>
       )}
