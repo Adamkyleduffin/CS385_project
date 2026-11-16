@@ -29,8 +29,9 @@ function TabsLayout() {
           name={tab.name}
           options={{
             title: tab.title,
+            // The tab bar always passes a plain colour string; SDK 58's wider type allows null.
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name={tab.icon} color={color} size={size} />
+              <MaterialCommunityIcons name={tab.icon} color={color as string} size={size} />
             ),
           }}
         />
