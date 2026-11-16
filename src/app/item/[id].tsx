@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, Divider, Icon, IconButton, Snackbar, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import CarbonImpact from '../../components/CarbonImpact';
 import { items } from '../../constants/mockData';
 
 export default function ItemDetail() {
@@ -54,6 +55,10 @@ export default function ItemDetail() {
           <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant, marginTop: 4 }}>
             {item.condition} · {item.size} · Uploaded {item.uploaded}
           </Text>
+
+          <View style={{ marginTop: 16 }}>
+            <CarbonImpact subcategory={item.subcategory} />
+          </View>
 
           <Divider style={{ marginVertical: 16 }} />
 
