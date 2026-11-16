@@ -36,11 +36,25 @@ export interface CarbonFactor {
 }
 
 /**
- * PLACEHOLDER emission factor (kg CO₂e per kg of clothing).
- * Replace with the Climatiq factor the team chooses, and record its activity ID and
- * source in docs/carbon-credits.md (Step 4 replaces this with values from Supabase).
+ * Where the clothing emission factor comes from. Shown in docs/carbon-credits.md and kept
+ * here so the code says exactly which Climatiq factor it uses.
  */
-export const PLACEHOLDER_TEXTILE_FACTOR = 20;
+export const CLOTHING_FACTOR_SOURCE = {
+  provider: 'Climatiq',
+  activityId: 'consumer_goods-type_clothing_primary_material_production',
+  factorId: 'b510ce09-872e-82c3-8cbe-823f1ce5ecbc',
+  dataset: 'BEIS/DESNZ Greenhouse gas reporting: conversion factors 2026',
+  region: 'GB',
+  lcaScope: 'cradle_to_gate',
+} as const;
+
+/**
+ * Clothing emission factor: 22,310 kg CO₂e per tonne = 22.31 kg CO₂e per kg of clothing
+ * (UK government factor via Climatiq; see {@link CLOTHING_FACTOR_SOURCE}).
+ * Cradle-to-gate only, so it leaves out transport, retail and washing: our estimates are
+ * deliberately on the low side rather than overclaiming.
+ */
+export const CLOTHING_KG_CO2E_PER_KG = 22.31;
 
 /**
  * Share of second-hand purchases that replace buying something new.
@@ -53,16 +67,18 @@ export const POINTS_PER_KG = 10;
 
 /**
  * Typical weight and emission factor for each sub-category.
- * Weights are rough team estimates for one item, to be checked and sourced.
+ * Weights are typical single-item weights (see docs/carbon-credits.md); replace them with the
+ * team's own measured averages when available. Footwear and Bags use the clothing factor as
+ * an approximation until a footwear/leather factor is chosen.
  */
 export const CARBON_FACTORS: Record<Subcategory, CarbonFactor> = {
-  Tops: { weightKg: 0.25, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Bottoms: { weightKg: 0.5, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Outerwear: { weightKg: 1.2, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Dresses: { weightKg: 0.4, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Footwear: { weightKg: 0.9, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Accessories: { weightKg: 0.1, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
-  Bags: { weightKg: 0.6, kgCo2ePerKg: PLACEHOLDER_TEXTILE_FACTOR },
+  Tops: { weightKg: 0.25, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Bottoms: { weightKg: 0.5, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Outerwear: { weightKg: 1.2, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Dresses: { weightKg: 0.3, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Footwear: { weightKg: 0.9, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Accessories: { weightKg: 0.1, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
+  Bags: { weightKg: 0.6, kgCo2ePerKg: CLOTHING_KG_CO2E_PER_KG },
 };
 
 /** The estimated impact of swapping one item. */
