@@ -1,0 +1,29 @@
+{
+  "co2e": 22.31,
+  "co2e_unit": "kg",
+  "co2e_calculation_method": "ar5",
+  "co2e_calculation_origin": "source",
+  "emission_factor": {
+    "name": "Clothing (primary material production)",
+    "activity_id": "consumer_goods-type_clothing_primary_material_production",
+    "id": "b510ce09-872e-82c3-8cbe-823f1ce5ecbc",
+    "access_type": "public",
+    "source": "BEIS",
+    "source_dataset": "Greenhouse gas reporting: conversion factors 2026",
+    "year": 2026,
+    "region": "GB",
+    "category": "Consumer Goods",
+    "source_lca_activity": "cradle_to_gate",
+    "data_quality_flags": []
+  },
+  "constituent_gases": {
+    "co2e_total": 22.31,
+    "co2e_other": null,
+    "co2": null,
+    "ch4": null,
+    "n2o": null
+  },
+  "activity_data": { "activity_value": 1, "activity_unit": "kg" },
+  "audit_trail": "selector",
+  "notices": []
+}
